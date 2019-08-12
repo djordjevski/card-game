@@ -1,68 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Card Game
+A simple card game created with React and Redux.<br/>
+Rules are simple. The player with the biggest points wins the round. If multiple players draw card with the same value, the winner is the one which played last.
 
-## Available Scripts
+## Build info
+App is created with the 'create react app' and it uses all standard scripts.<br/>
+To start the project in development mode execute "npm start" command and content will be served at http://localhost:3000
 
-In the project directory, you can run:
+## Project structure
+All development files are located in 'src' folder and grouped in folders by their purpose.<br/>
+It is good practice to create the folder structure which will make your code modular. With that in mind, folders are created to group modules which could be easily reused. Let's say if I would want to create this game with other UI library or framework, it would be easy to reuse all of the business logic placed in the 'utils' folder.
 
-### `npm start`
+### assets
+Containing 'images' and 'scss' resources.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### components
+Each component has its own folder containing component itself along with its style ('sccs' file) and test. Well... tests for components are still missing :/ But that is the first thing I plan to change on this project.<br/>
+This approach will prevent from creating the same structure for components, styles, and tests. I find this as a good solution to keep components encapsulated. Downside is that import statements gets a little bit ugly, which could be enhanced by adding in each folder 'package.json' with the definition of the main file so 'Component.js' would available the same way as 'index.js' does, but I decided not to have dozens of 'package.json' files in project and to live with imports as they are right now. That's the part of the code which you don't read to often anyways.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### store
+This app uses Redux as a state manager. All 'actions' and 'reducers' live here.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### utils
+Files located here are independent either of React or Redux, so they could easily be reused in different setup.<br/>
+cardsAPI.js - Has a responsibility to communicate with the deckofcardsapi.com and distribute relevant data to its caller.<br/>
+gameEngine.js - Is the brain of this app. All computations and complex methods are here so React can keep on rendering the UI and Redux can keep on managing the store.

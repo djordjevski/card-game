@@ -1,0 +1,34 @@
+@import '../../assets/scss/variablesAndMixins';
+
+$spinner: 64px;
+
+.loading {
+  @include layout--fade-in ();
+  margin: 0 -30px;
+
+  &__spinner {
+    display: inline-block;
+    width: $spinner;
+    height: $spinner;
+    &:after {
+      content: " ";
+      display: block;
+      width: $spinner;
+      height: $spinner;
+      margin: 1px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      border-color: #fff transparent #fff transparent;
+      animation: lds-dual-ring 1s linear infinite;
+    }
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,148 @@
+// Variables
+$c-text: #fff;
+$c-hihlight: #fc0;
+$c-hihlight--dark: #f70;
+$cardWidth: 4rem;
+$cardHeight: $cardWidth * 1.4;
+
+$cards:
+"AS" "A \2660"  "black",
+"2S" "2 \2660"  "black",
+"3S" "3 \2660"  "black",
+"4S" "4 \2660"  "black",
+"5S" "5 \2660"  "black",
+"6S" "6 \2660"  "black",
+"7S" "7 \2660"  "black",
+"8S" "8 \2660"  "black",
+"9S" "9 \2660"  "black",
+"0S" "10 \2660" "black",
+"JS" "J \2660"  "black",
+"QS" "Q \2660"  "black",
+"KS" "K \2660"  "black",
+"AD" "A \2666"  "red",
+"2D" "2 \2666"  "red",
+"3D" "3 \2666"  "red",
+"4D" "4 \2666"  "red",
+"5D" "5 \2666"  "red",
+"6D" "6 \2666"  "red",
+"7D" "7 \2666"  "red",
+"8D" "8 \2666"  "red",
+"9D" "9 \2666"  "red",
+"0D" "10 \2666" "red",
+"JD" "J \2666"  "red",
+"QD" "Q \2666"  "red",
+"KD" "K \2666"  "red",
+"AC" "A \2663"  "black",
+"2C" "2 \2663"  "black",
+"3C" "3 \2663"  "black",
+"4C" "4 \2663"  "black",
+"5C" "5 \2663"  "black",
+"6C" "6 \2663"  "black",
+"7C" "7 \2663"  "black",
+"8C" "8 \2663"  "black",
+"9C" "9 \2663"  "black",
+"0C" "10 \2663" "black",
+"JC" "J \2663"  "black",
+"QC" "Q \2663"  "black",
+"KC" "K \2663"  "black",
+"AH" "A \2665"  "red",
+"2H" "2 \2665"  "red",
+"3H" "3 \2665"  "red",
+"4H" "4 \2665"  "red",
+"5H" "5 \2665"  "red",
+"6H" "6 \2665"  "red",
+"7H" "7 \2665"  "red",
+"8H" "8 \2665"  "red",
+"9H" "9 \2665"  "red",
+"0H" "10 \2665" "red",
+"JH" "J \2665"  "red",
+"QH" "Q \2665"  "red",
+"KH" "K \2665"  "red";
+
+// Media query helper
+@mixin breakpoint($_pointName) {
+  @if $_pointName == XS {
+      @media only screen and (max-width: 479px) { @content; }
+  } @else if $_pointName == S {
+      @media only screen and (min-width: 480px) { @content; }
+  } @else if $_pointName == min-L {
+      @media only screen and (max-width: 991px) { @content; }
+  } @else if $_pointName == L {
+      @media only screen and (min-width: 992px) { @content; }
+  } @else if $_pointName == XL {
+      @media only screen and (min-width: 1200px) { @content; }
+  } @else if $_pointName == XXL {
+      @media only screen and (min-width: 1500px) { @content; }
+  } @else if $_pointName == XXXL {
+      @media only screen and (min-width: 1800px) { @content; }
+  } @else if $_pointName == _l {
+      @media only screen and (orientation: landscape) { @content; }
+  }
+}
+
+
+// Layout mixins
+@mixin layout--slide-up () {
+  position: absolute;
+  top: 100%;
+  height: 100vh;
+  width: 100vw;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    color: $c-hihlight;
+    font-family: 'Lobster', cursive;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 2rem;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+
+    background: -webkit-linear-gradient($c-hihlight, $c-hihlight--dark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  // Animation
+  &-enter {
+    &-active, &-done {
+      top: 0;
+      transition: top ease-out 0.5s;
+    }
+  }
+}
+@mixin layout--fade-in () {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity ease-in 0.3s;
+
+  &__message {
+    font-size: 2rem;
+    margin: 3rem;
+    max-width: 30rem;
+    text-align: center;
+  }
+
+  &-enter-active, &-enter-done {
+    opacity: 1;
+  }
+  &-exit-active, &-exit-done {
+    opacity: 0;
+  }
+}

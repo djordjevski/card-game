@@ -1,0 +1,91 @@
+@import '../../assets/scss/variablesAndMixins';
+
+.player {
+  display: contents;
+
+  &__name {
+    font-family: 'Lobster', cursive;
+    margin: 0.5rem 0;
+  }
+
+  &__score {
+    font-size: 0.75em;
+    margin: 0 0 0.5rem;
+  }
+
+  &__cards {
+    position: relative;
+    z-index: 2;
+    transition: width ease-in 0.1s;
+
+    &-appear, &-appear-active, &-appear-done,
+    &-enter, &-enter-active, &-enter-done {
+      .card__container { transform: rotateY(180deg) }
+    }
+    &-exit, &-exit-active, &-exit-done {
+      @for $i from 1 through 10 {
+        .player-card:nth-child(#{$i}) {
+          .card__container { transition-delay: $i * 0.1s; }
+        }
+      }
+    }
+    // &-exit, &-exit-active, &-exit-done
+  }
+  // &__cards
+}
+
+// Generate rules for players on each position
+$players:
+      "pit"  "pct"  "top",
+      "pil"  "pcl"  "left",
+      "pir"  "pcr"  "right",
+      "pib"  "pcb"  "bottom";
+
+@each $info, $cards, $position in $players {
+  .player--#{$position} {
+    // Place player info and cads into grid areas
+    .player__info   { grid-area: #{$info} }
+    .player__cards  { grid-area: #{$cards} }
+
+    // Bottom position specifics
+    @if $position == bottom {
+      .player__name { color: #fc0 }
+
+      // Create  proper container width and position left for player cards
+      @for $i from 1 through 10 {
+        .player__cards--#{$i} {
+          justify-self: center;
+          width: $i * $cardWidth;
+        }
+
+        .card:nth-child(#{$i}) {
+          position: absolute;
+          left: ($i - 1) * $cardWidth;
+          bottom: 0;
+        }
+      }
+    // Top, left, right
+    } @else {
+      .player__cards {
+        display: flex;
+        .card {
+          flex: 0 1 $cardWidth;
+          &:last-child {
+            flex-shrink: 0;
+          }
+        }        
+      }
+    }
+
+    // Top position specifics
+    @if $position == top {
+      .player__cards {
+        justify-content: center;
+        justify-self: center;
+        width: 80%;
+      }
+    }
+  }
+  // .player--#{$position}
+}
+// END - Generate rules for players on each position

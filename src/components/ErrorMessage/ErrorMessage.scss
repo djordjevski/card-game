@@ -1,0 +1,21 @@
+@import '../../assets/scss/variablesAndMixins';
+
+.error {
+  @include layout--fade-in ();
+
+  &__icon {
+    font-size: 4rem;
+    text-shadow: 0 0 5rem $c-hihlight;
+  }
+
+  &__title {
+    color: $c-hihlight--dark;
+    margin: 3rem 0 1.5rem;
+  }
+
+  &__text {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+}

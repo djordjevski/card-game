@@ -1,0 +1,40 @@
+@import '../../assets/scss/variablesAndMixins';
+
+/*
+* In order to have celar overview of columns
+* grid area names are abreviated as such:
+*
+* pit - player info top
+* pct - player cards top
+* tct - table card top
+* pil - player info left
+* pcl - player cards left
+* cnt - center
+* pir - player info right
+* pcr - player cards right
+* tcl - table card left
+* tcr - table card right
+* tcb - table card bottom
+* pcb - player cards bottom
+* pib - player info bottom
+*/
+$cw: $cardWidth * 10; // center width
+$lrw: minmax(100px, 1fr); // leaft & right width
+
+.game {
+  padding: 30px;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template:
+    ".    pit  ."    auto
+    ".    pct  ."    $cardHeight
+    ".    pct  ."    1fr
+    "pil  pct  pir"  $cardHeight
+    "pcl  .    pcr"  $cardHeight
+    ".    .    ."    $cardHeight
+    ".    pcb  ."    1fr
+    ".    pcb  ."    $cardHeight
+    ".    pib  ."    auto
+  / $lrw  $cw  $lrw;
+}

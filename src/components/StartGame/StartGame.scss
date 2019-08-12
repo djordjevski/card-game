@@ -1,0 +1,9 @@
+@import '../../assets/scss/variablesAndMixins';
+
+.select-players {
+  @include layout--slide-up();
+  &__button {
+    margin-bottom: 2rem;
+    width: 100%;
+  }  
+}

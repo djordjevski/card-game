@@ -1,0 +1,52 @@
+@import '../../assets/scss/variablesAndMixins';
+
+.final-score {
+  @include layout--slide-up();
+
+  &__content {
+    width: 80%;
+    @include breakpoint(S) {
+      width: 30rem;
+    }
+  }
+
+  &__scoreboard {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &__buttons {
+    display: flex;
+    @include breakpoint(min-L) {
+      flex-direction: column;
+    }
+
+    .btn {
+      flex: 1;
+      margin: 1rem;
+    }
+  }
+}
+
+.scoreboard {
+  background: rgba(0,0,0,0.5);
+  border: 2px solid $c-hihlight--dark;
+  border-radius: 1rem;
+}
+.scoreboard__item {
+  display: flex;
+  padding: 1rem;
+
+  &:not(:last-child) {
+    border-bottom: 2px solid $c-hihlight--dark;
+  }
+
+  &--my-score {
+    color: $c-hihlight;
+    font-weight: 700;
+  }
+}
+.scoreboard__score {
+  margin-left: auto;
+}

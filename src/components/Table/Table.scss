@@ -1,0 +1,156 @@
+@import '../../assets/scss/variablesAndMixins';
+
+// Local variables and mixins for cards display and positioning 
+$tb-to-slot: - $cardHeight * 1.25;
+$lr-to-slot: - $cardWidth * 2;
+$tb-to-center: - $cardHeight * 0.5;
+$lr-to-center: - $cardWidth * 0.5;
+
+@mixin player-bottom {
+  bottom: 0;
+  left: 50%;
+  margin: 0 0 0 $lr-to-center;
+  top: auto;
+  right: auto;
+}
+@mixin slot-bottom {
+  bottom: 50%;
+  left: 50%;
+  margin: 0 0 $tb-to-slot $lr-to-center;
+  top: auto;
+  right: auto;
+}
+
+@mixin player-left {
+  left: 0;
+  top: 50%;
+  margin: $tb-to-center 0 0 0;
+  bottom: auto;
+  right: auto;
+}
+@mixin slot-left {
+  left: 50%;
+  top: 50%;
+  margin: $tb-to-center 0 0 $lr-to-slot;
+  bottom: auto;
+  right: auto;
+}
+
+@mixin player-top {
+  top: 0;
+  left: 50%;
+  margin: 0 0 0 $lr-to-center;
+  bottom: auto;
+  right: auto;
+}
+@mixin slot-top {
+  top: 50%;
+  left: 50%;
+  margin: $tb-to-slot 0 0 $lr-to-center;
+  bottom: auto;
+  right: auto;
+}
+
+@mixin player-right {
+  right: 0;
+  top: 50%;
+  margin: $tb-to-center 0 0 0;
+  bottom: auto;
+  left: auto;
+}
+@mixin slot-right {
+  right: 50%;
+  top: 50%;
+  margin: $tb-to-center $lr-to-slot 0 0;
+  bottom: auto;
+  left: auto;
+}
+
+@mixin hide {
+  transform: rotateY(180deg);
+  &:after {
+    transform: rotateY(0deg);
+  }
+}
+@mixin flip-to-back {
+  .card__container { transition-delay: 0.5s; transform: rotateY(180deg) }
+}
+@mixin flip-to-front {
+  .card__container { transition-delay: 0.5s; transform: rotateY(0deg) }
+}
+// END:  Local variables and mixins for cards display and positioning 
+
+.table {
+  grid-area: 2 / 4 / 9 / 1;
+  position: relative;
+  z-index: 1;
+
+  &__card {
+    position: absolute;
+
+    &--bottom {
+      @include slot-bottom();
+    }
+    &--left {
+      @include flip-to-back();
+      @include player-left();
+    }
+    &--top {
+      @include flip-to-back();
+      @include player-top();
+    }
+    &--right {
+      @include flip-to-back();
+      @include player-right();
+    }
+  }
+
+  // Animation: submiting from players to table
+  &-enter {
+    .table__card {
+      transition: all ease-out 0.2s;
+      &--left {
+        @include slot-left();
+      }
+      &--top {
+        transition-delay: 0.1s;
+        @include slot-top();
+      }
+      &--right {
+        transition-delay: 0.2s;
+        @include slot-right();
+      }
+    }
+  }
+  &-enter-active, &-enter-done {
+    .table__card {
+      @include flip-to-front()
+    }
+  }
+
+  // Animation: submiting from table to winner
+  &-exit {
+    .table__card {
+      transition: all ease-out 0.2s, opacity ease-out 0.1s;
+      @include flip-to-front();
+    }
+  }
+  &-exit-active, &-exit-done {
+    .table__card { opacity: 0; }
+    &.table--collect {
+      &-bottom {
+        .table__card { @include player-bottom(); }
+      }
+      &-left {
+        .table__card { @include player-left(); }
+      }
+      &-top {
+        .table__card { @include player-top(); }
+      }
+      &-right {
+        .table__card { @include player-right(); }
+      }
+    }
+  }
+}
+// .table

@@ -5,12 +5,13 @@
 
   &__name {
     font-family: 'Lobster', cursive;
-    margin: 0.5rem 0;
+    // margin: 0;
   }
 
   &__score {
     font-size: 0.75em;
-    margin: 0 0 0.5rem;
+    // margin: 0;
+    line-height: 2;
   }
 
   &__cards {
@@ -44,8 +45,8 @@ $players:
 @each $info, $cards, $position in $players {
   .player--#{$position} {
     // Place player info and cads into grid areas
-    .player__info   { grid-area: #{$info} }
-    .player__cards  { grid-area: #{$cards} }
+    .player__info   { grid-area: #{$info}; align-self: flex-end; }
+    .player__cards  { grid-area: #{$cards}; }
 
     // Bottom position specifics
     @if $position == bottom {
